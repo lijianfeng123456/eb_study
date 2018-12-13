@@ -1,0 +1,65 @@
+1、环境搭建：
+	jdk的配置。
+	项目编码：utf-8
+	项目的发布路径。
+	项目的版本（servlet）
+	jar包
+2、springmvc-spring:
+	a、web.xml(DispatherServlet:url,servlet配置需要装载springmvc配置文件)
+	b、springmvc配置：
+		1\扫描包：<context:component-scan base-package="com.hqyj"></context:component-scan>
+		找请求@Controller,@RequestMapping("/helo")
+		2\简单处理逻辑
+		3、响应结果，@ResponseBody(json的jar包)
+				<mvc:annotation-driven></mvc:annotation-driven>
+				<mvc:default-servlet-handler/>
+			资源视图解析：
+			<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" value="/WEB-INF/view/"></property>
+			<property name="suffix" value=".jsp"></property>
+			</bean>
+3、mybatis-spring
+	a\导包：mybatis-spring.jar
+		mybatis.jar
+		数据库驱动包
+		spring-jdbc.jar
+	b\创建sqlSessionFactory
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  	<property name="dataSource" ref="dataSource" />
+  	//mapper文件地址
+  	<property name="mapperLocations" value="classpath*:sample/config/mappers/**/*.xml" />
+	 <!-- 加载全局配置文件的地址 -->
+   <property name="configLocation" value="classpath:mybatis-conf.xml"></property>
+	</bean>
+	以c3p0为案例，导入c3p0jar包
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+    <property name="driverClass" value="${driver}"/>
+    <property name="jdbcUrl" value="${url}"/>
+    <property name="user" value="${user}"/>
+    <property name="password" value="${password}"/>
+     <property name="initialPoolSize" value="10"></property>  
+        <property name="maxIdleTime" value="30"></property>  
+        <property name="maxPoolSize" value="100"></property>  
+        <property name="minPoolSize" value="10"></property>  
+        <property name="maxStatements" value="200"></property>  
+	</bean>
+	c\创建MapperScannerConfigurer
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	  <property name="basePackage" value="org.mybatis.spring.sample.mapper" />
+	</bean>
+	d\测试
+4、spring配置文件在容器装载的时候，就得添加。
+<!-- needed for ContextLoaderListener -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml</param-value>
+	</context-param>
+
+	<!-- Bootstraps the root web application context before servlet initialization -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	
+		
+		
