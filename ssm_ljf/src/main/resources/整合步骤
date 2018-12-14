@@ -7,7 +7,7 @@
 2、springmvc-spring:
 	a、web.xml(DispatherServlet:url,servlet配置需要装载springmvc配置文件)
 	b、springmvc配置：
-		1\扫描包：<context:component-scan base-package="com.hqyj"></context:component-scan>
+		1\扫描包：<context:component-scan base-package="com.ljf"></context:component-scan>
 		找请求@Controller,@RequestMapping("/helo")
 		2\简单处理逻辑
 		3、响应结果，@ResponseBody(json的jar包)
