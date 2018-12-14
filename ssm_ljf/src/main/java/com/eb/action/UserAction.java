@@ -1,6 +1,5 @@
 package com.eb.action;
 
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,10 +25,9 @@ public class UserAction {
 	
     @RequestMapping(value="/login",produces="text/html;charset=UTF-8")
     @ResponseBody
-	public String login(User user,Map map) {
+	public String login(User user) {
 		User u=userService.userLogin(user);
 		if(u!=null){
-			map.put("user",user.getUsername());
 			return "success";
 		}else{
 			return "error";
